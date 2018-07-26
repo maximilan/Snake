@@ -16,7 +16,10 @@ class Point():
         self.counter = 1
 
     def draw(self):
-        c.create_rectangle(self.x, self.y, self.x + snakethick, self.y + snakethick, fill = self.fill, outline = self.fill)
+        if self.fill != 'green':
+            c.create_oval(self.x+1, self.y+1, self.x+snakethick-1, self.y+snakethick-1, fill = self.fill, outline = self.fill)
+        else:
+            c.create_rectangle(self.x, self.y, self.x + snakethick, self.y + snakethick, fill = self.fill, outline = self.fill)
 
     def add(self, x, y):
         return Point(self.x + x, self.y + y)
@@ -183,5 +186,6 @@ while running:
         show()
 
     gameover()
+
     if running  == False:
         break
