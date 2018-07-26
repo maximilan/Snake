@@ -189,7 +189,7 @@ def gameover():
         for i in range(4):
             root.update()
             sleep(1)
-            if running = False:
+            if running == False:
                 break
         if (running):
             c.delete("all")
