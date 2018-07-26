@@ -111,6 +111,7 @@ from tkinter import *
 import tkinter as tk
 from time import sleep
 from random import randint
+import shelve
 def close_window():
     global running
     running = False
@@ -123,8 +124,6 @@ root.title = "Snake"
 root.protocol("WM_DELETE_WINDOW", close_window)
 c = Canvas(width = Width, height = Width, bg = 'white')
 c.pack()
-snake = Snake()
-item = Item()
 
 def movement(event):
     global current_key
@@ -151,6 +150,7 @@ def start_game():
     start = False
 
 def init():
+    c.delete("all")
     global start
     start = True
     c.create_rectangle(0, 0, Width + 100, Width + 100, fill = 'black', outline = 'black')
@@ -167,17 +167,41 @@ def init():
     start = True
 
 def gameover():
-    c.create_text(Width/2, Width/2 -50, text = "Game over", font=('Lato Black', 60), fill = 'white')
-    c.create_text(Width/2, Width/2+30, text = "Points: " + str(len(snake.return_body())), font=('Lato Black', 30), fill = 'white')
-    for i in range(4):
-        root.update()
-        sleep(1)
     if running != False:
-        c.delete("all")
+        data = shelve.open("personalhighscores", writeback = True)
+        try:
+            scores = data["highscores"]
+        except:
+            data["highscores"] = []
+            scores = data["highscores"]
+        scores.append(len(snake.return_body()))
+        scores.sort()
+
+        c.create_text(Width/2, Width/2 -50, text = "Game over", font=('Lato Black', 60), fill = 'white')
+        c.create_text(Width/2, Width/2+30, text = "Points: " + str(len(snake.return_body())), font=('Lato Black', 20), fill = 'white')
+        if len(snake.return_body()) == scores[len(scores)-1]:
+            c.create_text(Width/2, Width/2 +60, text = "New Highscore!", font=('Lato Black', 20), fill = 'white')
+        else:
+            c.create_text(Width/2, Width/2 +90, text = "Current Highscore: " + str(scores[len(scores)-1]), font=('Lato Black', 20), fill = 'white')
+
+        data.close()
+
+        for i in range(4):
+            root.update()
+            sleep(1)
+            if running = False:
+                break
+        if (running):
+            c.delete("all")
 
 
 while running:
+    snake = Snake()
+    item = Item()
+    current_direction = "Right"
+    current_key = "Right"
     init()
+    game = True
 
     if running == False:
         break
