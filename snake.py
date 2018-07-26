@@ -156,26 +156,32 @@ def init():
     B = tk.Button(root, text="Neues Spiel", command = start_game)
     B.pack(side = LEFT)
     while start:
-        if running = False:
+        if running == False:
             break
         root.update()
-    B.destroy()
+    if running != False:
+        B.destroy()
     start = True
 
 def gameover():
     c.create_text(Width/2, Width/2 -50, text = "Game over", font=('Lato Black', 60), fill = 'white')
     c.create_text(Width/2, Width/2+30, text = "Points: " + str(len(snake.return_body())), font=('Lato Black', 30), fill = 'white')
-    root.update()
-    sleep(5)
-    if running = False:
-        break
-    c.delete("all")
+    for i in range(4):
+        root.update()
+        sleep(1)
+    if running != False:
+        c.delete("all")
 
 
 while running:
     init()
 
+    if running == False:
+        break
+
     while game:
         show()
 
     gameover()
+    if running  == False:
+        break
