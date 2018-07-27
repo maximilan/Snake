@@ -36,7 +36,14 @@ class Point():
 
 class Item():
     def __init__(self):
-        self.point = Point(randint(1, rows -1 ) * snakethick, randint(1, rows -1) * snakethick, 'red')
+        new = False
+        while new != True:
+            self.point = Point(randint(1, rows -1 ) * snakethick, randint(1, rows -1) * snakethick, 'red')
+            for p in snake.body:
+                if p != None:
+                    if self.point.equals(p):
+                        break
+                new = True
     def show(self):
         self.point.draw()
     def return_point(self):
@@ -45,7 +52,7 @@ class Item():
 class Snake():
     def __init__(self):
         self.length = 2
-        self.counter = 0
+        self.counter = 1
         self.body = list()
         self.body.append(Point(snakethick*2, snakethick))
         self.body.append(self.body[0].add(-snakethick, 0))
@@ -95,6 +102,7 @@ class Snake():
                 x, y = point.return_coords()
                 if x <= 0 or x >= Width or y <= 0 or y >= Width:
                     game = False
+        #wenn Schlange volle Spielfläche einnimm, hat Spieler gewonnen
 
     def grow(self):
         old = (self.counter % self.length)
