@@ -42,6 +42,7 @@ class Item():
             for p in snake.body:
                 if p != None:
                     if self.point.equals(p):
+                        new = False
                         break
                 new = True
     def show(self):
