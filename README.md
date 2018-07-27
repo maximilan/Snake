@@ -11,6 +11,6 @@ Traditional Snake game in Python and Processing(Java)
 
 ----------Processing---------
 
--Direction input using 'w''a''s''d'
+-Direction input using 'wasd'
 
 -----------------------------
