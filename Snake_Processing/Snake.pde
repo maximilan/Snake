@@ -49,6 +49,11 @@ class Snake{
     item = new Item();
     grow = false;
   }
+  
+  //if snake as large as screen, player has won
+  if (body.size() >= rows * rows){
+    game = false;
+  }
   }
   
   void grow(){

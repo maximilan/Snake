@@ -1,4 +1,4 @@
-Width = 400
+Width = 320
 snakethick = 8
 rows = Width / snakethick
 current_key = "Right"
@@ -95,14 +95,16 @@ class Snake():
             if point != None:
                 point.draw()
                 if point.equals(item.return_point()):
-                    self.grow()
-                    self.grow()
                     item = Item()
+                    self.grow()
+                    self.grow()
                 #Überprüfen, ob Schlange den Rand erreicht hat
                 x, y = point.return_coords()
                 if x <= 0 or x >= Width or y <= 0 or y >= Width:
                     game = False
-        #wenn Schlange volle Spielfläche einnimm, hat Spieler gewonnen
+        #wenn Schlange volle Spielfläche einnimmt, hat Spieler gewonnen
+        if len(self.body) >= rows*rows:
+            game = False
 
     def grow(self):
         old = (self.counter % self.length)
@@ -185,7 +187,7 @@ def gameover():
         scores.append(len(snake.return_body()))
         scores.sort()
 
-        c.create_text(Width/2, Width/2 -50, text = "Game over", font=('Lato Black', 60), fill = 'white')
+        c.create_text(Width/2, Width/2 -50, text = "Game over", font=('Lato Black', 50), fill = 'white')
         c.create_text(Width/2, Width/2+30, text = "Points: " + str(len(snake.return_body())), font=('Lato Black', 20), fill = 'white')
         if len(snake.return_body()) == scores[len(scores)-1]:
             c.create_text(Width/2, Width/2 +60, text = "New Highscore!", font=('Lato Black', 20), fill = 'white')
