@@ -45,6 +45,7 @@ class Snake{
   }
   if (grow){
     grow();
+    grow();
     item = new Item();
     grow = false;
   }
