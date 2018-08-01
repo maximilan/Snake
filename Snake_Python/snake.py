@@ -67,9 +67,7 @@ class Snake():
         global Width
         global current_direction
         change = (self.counter % self.length)
-        print(change)
         new = self.head
-        #print(self.body[change])
         if current_key == "Up":
             self.body[change] = new.add(0, -snakethick)
         elif current_key == "Down":
@@ -97,6 +95,7 @@ class Snake():
             if point != None:
                 point.draw()
                 if point.equals(item.return_point()):
+                    self.grow()
                     self.grow()
                     item = Item()
                 #Überprüfen, ob Schlange den Rand erreicht hat
